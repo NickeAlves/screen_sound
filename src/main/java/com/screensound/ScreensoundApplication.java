@@ -21,7 +21,6 @@ public class ScreensoundApplication implements CommandLineRunner {
 		Principal principal = new Principal(repository);
 		principal.exibeMenu();
 	}
-
 }
 
 

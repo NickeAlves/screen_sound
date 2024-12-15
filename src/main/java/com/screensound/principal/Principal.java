@@ -1,5 +1,6 @@
 package com.screensound.principal;
 
+import com.screensound.translate.GoogleTranslate;
 import com.screensound.model.Artista;
 import com.screensound.model.Musica;
 import com.screensound.model.TipoArtista;
@@ -26,7 +27,7 @@ public class Principal {
 
         while (opcao != 9) {
             var menu = """
-                    *** Screen Sound ***
+                    \n*** Screen Sound ***
 
                     1 - Cadastrar artistas
                     2 - Cadasrar músicas
@@ -62,7 +63,7 @@ public class Principal {
                     System.out.println("Saindo...");
                     break;
                 default:
-                    System.out.println("Opção inválida!0");
+                    System.out.println("Opção inválida!");
             }
         }
     }
@@ -109,7 +110,7 @@ public class Principal {
         System.out.print("Qual artista deseja pesquisar? ");
         var nomeArtista = sc.nextLine();
 
-        String apiKey = "4558e93f1d4ebe23ba93200501be657b";
+        String apiKey = System.getenv("API_KEY_LASTFM");
         String url = "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist="
                 + nomeArtista.replace(" ", "%20")
                 + "&api_key=" + apiKey + "&format-json";
@@ -127,13 +128,20 @@ public class Principal {
             in.close();
 
             String jsonResponse = response.toString();
-            int bioStart = jsonResponse.indexOf("<summary>")+9;
+            int bioStart = jsonResponse.indexOf("<summary>") + 9;
             int bioEnd = jsonResponse.indexOf("</summary>");
             if (bioStart >= 9 && bioEnd > bioStart) {
                 String biografia = jsonResponse.substring(bioStart, bioEnd)
                         .replace("\\n", "\n")
                         .replace("\\", "");
-                System.out.println("Descrição do Artista:\n" + limparDadosDoArtista (biografia));
+
+                String biografiaLimpa = limparDadosDoArtista(biografia);
+                try {
+                    String biografiaTraduzida = GoogleTranslate.translateText(biografiaLimpa, "pt");
+                    System.out.println("Biografia: " + biografiaTraduzida);
+                } catch (Exception e) {
+                    System.err.println("Erro ao traduzir a biografia: " + e.getMessage());
+                }
             } else {
                 System.out.println("Não foi possível encontrar informações sobre o artista.");
             }
