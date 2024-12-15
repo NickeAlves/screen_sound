@@ -57,7 +57,7 @@ public class Principal {
                     buscarMusicaPorArtista();
                     break;
                 case 5:
-                    dadosArtista();
+                    pesquisarDadosArtista();
                     break;
                 case 9:
                     System.out.println("Saindo...");
@@ -106,7 +106,7 @@ public class Principal {
         artistas.forEach(a -> a.getMusicas().forEach(System.out::println));
     }
 
-    private void dadosArtista() {
+    private void pesquisarDadosArtista() {
         System.out.print("Qual artista deseja pesquisar? ");
         var nomeArtista = sc.nextLine();
 
