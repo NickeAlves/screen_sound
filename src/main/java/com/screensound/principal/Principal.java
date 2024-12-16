@@ -61,6 +61,7 @@ public class Principal {
                     break;
                 case 9:
                     System.out.println("Saindo...");
+                    sc.close();
                     break;
                 default:
                     System.out.println("Opção inválida!");
@@ -74,10 +75,11 @@ public class Principal {
         while (cadastrarNovo.equalsIgnoreCase("s")) {
             System.out.print("Informe o nome do artista: ");
             var nome = sc.nextLine();
+            var nomeCorrigido = capitalizeWords(nome);
             System.out.print("Informe o tipo do artista (solo, dupla ou banda): ");
             var tipo = sc.nextLine();
             TipoArtista tipoArtista = TipoArtista.valueOf(tipo.toUpperCase());
-            Artista artista = new Artista(nome, tipoArtista);
+            Artista artista = new Artista(nomeCorrigido, tipoArtista);
             repository.save(artista);
             System.out.print("Cadastrar novo artista? (S/N) ");
             cadastrarNovo = sc.nextLine();
@@ -98,7 +100,6 @@ public class Principal {
         } else {
             System.out.println("Artista não encontrado!");
         }
-
     }
 
     private void listarMusicas() {
@@ -154,7 +155,11 @@ public class Principal {
         System.out.print("Buscar músicas de que artista? ");
         var nome = sc.nextLine();
         List<Musica> musicas = repository.buscarMusicasPorArtista(nome);
-        musicas.forEach(System.out::println);
+        if (musicas.isEmpty()) {
+            System.out.println("Este artista não possui música cadastrada.");
+        } else {
+            musicas.forEach(System.out::println);
+        }
     }
 
     public String limparDadosDoArtista (String dadosArtista) {
@@ -162,5 +167,13 @@ public class Principal {
                 .replaceAll("&apos;", "")
                 .replaceAll(";", "");
         return teste.substring(0,teste.indexOf("&lt"));
+    }
+
+    public static String capitalizeWords(String str) {
+        String[] words = str.toLowerCase().split(" ");
+        for (int i = 0; i < words.length; i++) {
+            words[i] = words[i].substring(0, 1).toUpperCase() + words[i].substring(1);
+        }
+        return String.join(" ", words);
     }
 }
