@@ -73,6 +73,8 @@ Um programa desenvolvido em **Java**, utilizando **Spring Boot**, **JPA**, **Pos
     Acesse a aplicação em: http://localhost:8080.
 
 
+
+
 📄 **APIs Utilizadas**
 
   Last.fm API:
@@ -80,6 +82,9 @@ Um programa desenvolvido em **Java**, utilizando **Spring Boot**, **JPA**, **Pos
 
   Google Cloud Translation API:
   Utilizada para traduzir as biografias dos artistas para o português.
+
+
+
 
 
 
