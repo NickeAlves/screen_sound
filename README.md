@@ -72,7 +72,8 @@ Um programa desenvolvido em **Java**, utilizando **Spring Boot**, **JPA**, **Pos
     mvn spring-boot:run
     Acesse a aplicação em: http://localhost:8080.
 
-
+<br>
+<br>
 
 
 📄 **APIs Utilizadas**
@@ -83,9 +84,10 @@ Um programa desenvolvido em **Java**, utilizando **Spring Boot**, **JPA**, **Pos
   Google Cloud Translation API:
   Utilizada para traduzir as biografias dos artistas para o português.
 
+<br>
+<br>
 
-
-
+<br>
 
 
 Todos os direitos reservados Nicolas Alves ©
